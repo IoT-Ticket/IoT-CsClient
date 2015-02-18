@@ -15,9 +15,9 @@ namespace Wapice.IoTTicket.RestClient.Tests
     {
         private IIoTTicketClient _client;
 
-        private const string Username = "mist";
-        private const string Password = "Wapice1";
-        private const string DeviceId = "9a99399317644894878f48cc6e47a813"; // se instructions below
+        private const string Username = "<user_name>";
+        private const string Password = "<password>";
+        private const string DeviceId = "<your_device_id>"; // se instructions below
 
         [TestInitialize]
         public void InitializeTest()
