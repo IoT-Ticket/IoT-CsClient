@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>Wapice.IoTTicket.RestClient</id>
+        <version>0.0.2</version>
+        <authors>Wapice Ltd.</authors>
+        <projectUrl>https://www.iot-ticket.com/</projectUrl>
+		<licenseUrl>https://github.com/IoT-Ticket/RestClient/blob/master/LICENCE.md</licenseUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>A client library for the Wapice IoT Ticket platform.</description>
+        <summary />
+        <releaseNotes>First alpha release</releaseNotes>
+        <copyright>Wapice Ltd.</copyright>
+        <tags>IoTTicket, IoT, Wapice</tags>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="Microsoft.CSharp" targetFramework="" />
+            <frameworkAssembly assemblyName="System" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Core" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Net.Http" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="" />
+            <frameworkAssembly assemblyName="System.Xml" targetFramework="" />
+        </frameworkAssemblies>
+    </metadata>
+    <files>
+        <file src="Wapice.IoTTicket.RestClient\bin\Release\Wapice.IoTTicket.RestClient.dll" target="lib\net45\Wapice.IoTTicket.RestClient.dll" />
+    </files>
+</package>

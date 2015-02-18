@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wapice.IoTTicket.RestClient", "Wapice.IoTTicket.RestClient\Wapice.IoTTicket.RestClient.csproj", "{3F7FD147-4BDB-4AF6-8285-33BBDE27EF9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wapice.IoTTicket.RestClient.Tests", "Wapice.IoTTicket.RestClient.Tests\Wapice.IoTTicket.RestClient.Tests.csproj", "{CC397CBE-EBE2-458E-998D-4E19FC5F2539}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F7FD147-4BDB-4AF6-8285-33BBDE27EF9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F7FD147-4BDB-4AF6-8285-33BBDE27EF9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F7FD147-4BDB-4AF6-8285-33BBDE27EF9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F7FD147-4BDB-4AF6-8285-33BBDE27EF9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC397CBE-EBE2-458E-998D-4E19FC5F2539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC397CBE-EBE2-458E-998D-4E19FC5F2539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC397CBE-EBE2-458E-998D-4E19FC5F2539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC397CBE-EBE2-458E-998D-4E19FC5F2539}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
