@@ -45,13 +45,17 @@ device id is obtained, clients can immediately start sending measurement values 
 <pre><code>
   var datapoint = new DatanodeWritableValue
   {
-      Name = "MyByteTestDatapoint",
-      Path = "My/Test",
-      Value = new byte[] { 1, 2, 3, 4, 5, 6,7, 9, 10},
-      Unit = "byte",
+      Name = "Temperature",
+      Path = "Engine",
+      Value = 87.4,
+      Unit = "c",
+      DataType="double",
+      Timestamp = DateTime.Now
   };
   
   var writeResult = client.WriteDatapointAsync(DeviceId, datapoint).Result;
+  
+  //dispose client when not needed anymore 
 </code></pre>
 
 ## API documentation
