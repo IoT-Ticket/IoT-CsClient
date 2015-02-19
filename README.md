@@ -62,4 +62,6 @@ device id is obtained, clients can immediately start sending measurement values 
 
 https://www.iot-ticket.com/images/Files/IoT-Ticket.com_IoT_API.pdf
 
+## NuGet Package
 
+https://www.nuget.org/packages/Wapice.IoTTicket.RestClient/
