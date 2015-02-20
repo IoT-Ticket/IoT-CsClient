@@ -2,14 +2,14 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Wapice.IoTTicket.RestClient</id>
-        <version>0.0.2</version>
+        <version>1.0.0</version>
         <authors>Wapice Ltd.</authors>
         <projectUrl>https://www.iot-ticket.com/</projectUrl>
 		<licenseUrl>https://github.com/IoT-Ticket/RestClient/blob/master/LICENCE.md</licenseUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
         <description>A client library for the Wapice IoT Ticket platform.</description>
         <summary />
-        <releaseNotes>First alpha release</releaseNotes>
+        <releaseNotes></releaseNotes>
         <copyright>Wapice Ltd.</copyright>
         <tags>IoTTicket, IoT, Wapice</tags>
         <frameworkAssemblies>
