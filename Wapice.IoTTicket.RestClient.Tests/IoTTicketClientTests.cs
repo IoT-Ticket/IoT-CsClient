@@ -252,6 +252,57 @@ namespace Wapice.IoTTicket.RestClient.Tests
             Assert.IsNotNull(deviceQuota);
         }
 
+        [TestMethod]
+        public void ReadStatisticalData_NoCancellationToken_ResultsReturned()
+        {
+
+            DateTime startDate = DateTime.Now.AddHours(-1);
+            DateTime endDate = DateTime.Now;
+
+            StatisticalDataQueryCriteria criteria = new StatisticalDataQueryCriteria(DeviceId, Grouping.Day, startDate, endDate, "MyTestDataPoint");
+
+            var statisticalValues = _client.ReadStatisticalDataAsync(criteria).Result;
+            Assert.IsNotNull(statisticalValues);
+            Assert.IsNotNull(statisticalValues.Datanodes);
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.Any());
+            Assert.AreNotEqual(DateTime.MinValue, statisticalValues.Datanodes.First().Values.First().Timestamp);
+            Assert.AreNotEqual(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), statisticalValues.Datanodes.First().Values.First().Timestamp);
+
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Minimum);
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Maximum);
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Average);
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Sum);
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Timestamp);
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().UnixTimestamp);            
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Count);
+
+        }
+
+        [TestMethod]
+        public void ReadStatisticalData_NoCancellationToken_NoStatisticalDataAvailable()
+        {
+            DateTime startDate = DateTime.Now.AddYears(10).AddHours(-1);
+            DateTime endDate = DateTime.Now.AddYears(10);
+
+            StatisticalDataQueryCriteria criteria = new StatisticalDataQueryCriteria(DeviceId, Grouping.Day, startDate, endDate, "MyTestDataPoint");
+
+            var statisticalValues = _client.ReadStatisticalDataAsync(criteria).Result;
+            Assert.IsNotNull(statisticalValues);
+            Assert.IsNotNull(statisticalValues.Datanodes);
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.Any());
+            Assert.AreNotEqual(DateTime.MinValue, statisticalValues.Datanodes.First().Values.First().Timestamp);
+            Assert.AreNotEqual(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), statisticalValues.Datanodes.First().Values.First().Timestamp);
+
+            Assert.IsNull(statisticalValues.Datanodes.First().Values.First().Minimum);
+            Assert.IsNull(statisticalValues.Datanodes.First().Values.First().Maximum);
+            Assert.IsNull(statisticalValues.Datanodes.First().Values.First().Average);
+            Assert.AreEqual(0u, statisticalValues.Datanodes.First().Values.First().Sum);
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Timestamp);
+            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().UnixTimestamp);
+            Assert.AreEqual(0u, statisticalValues.Datanodes.First().Values.First().Count);
+
+        }
+
         private void TestTaskCancellation(Task task, CancellationToken cancellationToken)
         {
             try

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -21,6 +22,7 @@ namespace Wapice.IoTTicket.RestClient
         private const string DatanodesResourceFormat = SpecificDeviceResourceFormat + "datanodes/";
         private const string WriteDataResourceFormat = "process/write/{0}/";
         private const string ReadDataResourceFormat = "process/read/{0}/?datanodes={1}";
+        private const string ReadStatisticalDataResourceFormat = "stat/read/{0}/?datanodes={1}&fromdate={2}&todate={3}&grouping={4}";
         private const string QuotaAllResource = "quota/all/";
         private const string QuotaDeviceResourceFormat = "quota/{0}/";
         private const string PagedQueryParamsFormat = "?limit={0}&offset={1}";
@@ -48,7 +50,7 @@ namespace Wapice.IoTTicket.RestClient
 
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             client.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue(new ProductHeaderValue("IoTTicket-C#-library", "0.1")));
-            
+
             return client;
         }
 
@@ -154,6 +156,32 @@ namespace Wapice.IoTTicket.RestClient
             }
         }
 
+        public async Task<StatisticalValues> ReadStatisticalDataAsync(StatisticalDataQueryCriteria criteria, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (criteria == null)
+                throw new ArgumentNullException("criteria");
+
+            string uri = String.Format(ReadStatisticalDataResourceFormat, 
+                criteria.DeviceId, 
+                Uri.EscapeUriString(String.Join(",", criteria.Datanodes)), 
+                criteria.StartDate.ToUnixTime(), 
+                criteria.EndDate.ToUnixTime(), 
+                criteria.Grouping);
+
+            if (criteria.SortOrder != DatanodeQueryCriteria.Order.Unset)
+                uri += String.Format("&order={0}", criteria.SortOrder.ToString().ToLower());
+            if (criteria.VTags.Any())
+                uri += String.Format("&vtags={0}", String.Join(",", criteria.VTags));
+
+            using (var response = await _client.HandledGetAsync(uri, cancellationToken))
+            {
+                Console.WriteLine(response.Content.ToString());
+                var statisticalValues = await JsonSerializer.DeserializeAsync<StatisticalValues>(response.Content);
+                return statisticalValues;
+            }
+            
+        }
+        
         public async Task<Quota> GetQuotaAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             using (var response = await _client.HandledGetAsync(QuotaAllResource, cancellationToken))

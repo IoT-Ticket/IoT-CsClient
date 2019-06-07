@@ -46,17 +46,20 @@
     <Compile Include="Extensions\HttpResponseMessageExtensions.cs" />
     <Compile Include="IIoTTicketClient.cs" />
     <Compile Include="JsonSerializer.cs" />
+    <Compile Include="Model\StatisticalValues.cs" />
     <Compile Include="Model\DeviceAttribute.cs" />
     <Compile Include="Model\Datanode.cs" />
     <Compile Include="Model\DatanodeValues.cs" />
     <Compile Include="Model\DatanodeQueryCriteria.cs" />
     <Compile Include="Model\DeviceQuota.cs" />
     <Compile Include="Model\ErrorInfo.cs" />
+    <Compile Include="Model\Grouping.cs" />
     <Compile Include="Model\PagedResult.cs" />
     <Compile Include="Model\Quota.cs" />
     <Compile Include="IoTTicketClient.cs" />
     <Compile Include="Model\DataType.cs" />
     <Compile Include="Model\Device.cs" />
+    <Compile Include="Model\StatisticalDataQueryCriteria.cs" />
     <Compile Include="Model\WriteResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

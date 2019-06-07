@@ -63,6 +63,9 @@ namespace Wapice.IoTTicket.RestClient
         /// <returns>The result of the query. See <see cref="ProcessValues"/> for more information.</returns>
         Task<ProcessValues> ReadProcessDataAsync(DatanodeQueryCriteria criteria, CancellationToken cancellationToken = default(CancellationToken));
 
+        // TODO: add docs
+        Task<StatisticalValues> ReadStatisticalDataAsync(StatisticalDataQueryCriteria criteria, CancellationToken cancellationToken = default(CancellationToken));
+
         /// <summary>
         /// Gets the user's quota information from the server.
         /// </summary>
