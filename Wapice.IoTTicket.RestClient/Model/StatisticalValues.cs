@@ -33,7 +33,6 @@ namespace Wapice.IoTTicket.RestClient.Model
     [DataContract]
     public class StatisticalValueData
     {
-        // TODO: Should we have "Datanode" here like we have in DatanodeValueData?
         [DataMember(Name = "min")]
         public double? Minimum { get; set; }
 

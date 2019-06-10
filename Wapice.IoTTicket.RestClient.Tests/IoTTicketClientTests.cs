@@ -259,48 +259,63 @@ namespace Wapice.IoTTicket.RestClient.Tests
             DateTime startDate = DateTime.Now.AddHours(-1);
             DateTime endDate = DateTime.Now;
 
-            StatisticalDataQueryCriteria criteria = new StatisticalDataQueryCriteria(DeviceId, Grouping.Day, startDate, endDate, "MyTestDataPoint");
+            StatisticalDataQueryCriteria criteria = new StatisticalDataQueryCriteria(DeviceId, StatisticalDataQueryCriteria.Grouping.Day, startDate, endDate, "MyTestDataPoint");
 
             var statisticalValues = _client.ReadStatisticalDataAsync(criteria).Result;
             Assert.IsNotNull(statisticalValues);
+            Assert.IsNotNull(statisticalValues.Url);
             Assert.IsNotNull(statisticalValues.Datanodes);
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.Any());
-            Assert.AreNotEqual(DateTime.MinValue, statisticalValues.Datanodes.First().Values.First().Timestamp);
-            Assert.AreNotEqual(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), statisticalValues.Datanodes.First().Values.First().Timestamp);
 
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Minimum);
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Maximum);
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Average);
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Sum);
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Timestamp);
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().UnixTimestamp);            
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Count);
+            Assert.AreEqual(1, statisticalValues.Datanodes.Count());
+            StatisticalDatanodeReadValue datanodeReadValue = statisticalValues.Datanodes.First();
 
-        }
+            Assert.AreEqual("MyTestDatapoint", datanodeReadValue.Name);
+            Assert.AreEqual("My/Test", datanodeReadValue.Path);
+            Assert.AreEqual(LongDataType.TypeName, datanodeReadValue.DataType);
+            Assert.AreEqual("%", datanodeReadValue.Unit);
+
+            Assert.AreEqual(1, datanodeReadValue.Values.Count());
+            StatisticalValueData valueData = datanodeReadValue.Values.First();
+
+            Assert.AreNotEqual(DateTime.MinValue, statisticalValues.Datanodes.First().Values.First().UnixTimestamp);
+            Assert.AreNotEqual(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), statisticalValues.Datanodes.First().Values.First().Count);
+            Assert.AreNotEqual(0u, valueData.Count);
+            Assert.IsNotNull(valueData.Minimum);
+            Assert.IsNotNull(valueData.Maximum);
+            Assert.IsNotNull(valueData.Average);
+            }
 
         [TestMethod]
-        public void ReadStatisticalData_NoCancellationToken_NoStatisticalDataAvailable()
+        public void ReadStatisticalData_NoCancellationTokenAndNoStatisticalDataFound_ResultsReturned()
         {
             DateTime startDate = DateTime.Now.AddYears(10).AddHours(-1);
             DateTime endDate = DateTime.Now.AddYears(10);
 
-            StatisticalDataQueryCriteria criteria = new StatisticalDataQueryCriteria(DeviceId, Grouping.Day, startDate, endDate, "MyTestDataPoint");
+            StatisticalDataQueryCriteria criteria = new StatisticalDataQueryCriteria(DeviceId, StatisticalDataQueryCriteria.Grouping.Day, startDate, endDate, "MyTestDataPoint");
 
             var statisticalValues = _client.ReadStatisticalDataAsync(criteria).Result;
             Assert.IsNotNull(statisticalValues);
+            Assert.IsNotNull(statisticalValues.Url);
             Assert.IsNotNull(statisticalValues.Datanodes);
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.Any());
-            Assert.AreNotEqual(DateTime.MinValue, statisticalValues.Datanodes.First().Values.First().Timestamp);
-            Assert.AreNotEqual(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), statisticalValues.Datanodes.First().Values.First().Timestamp);
 
-            Assert.IsNull(statisticalValues.Datanodes.First().Values.First().Minimum);
-            Assert.IsNull(statisticalValues.Datanodes.First().Values.First().Maximum);
-            Assert.IsNull(statisticalValues.Datanodes.First().Values.First().Average);
-            Assert.AreEqual(0u, statisticalValues.Datanodes.First().Values.First().Sum);
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().Timestamp);
-            Assert.IsNotNull(statisticalValues.Datanodes.First().Values.First().UnixTimestamp);
-            Assert.AreEqual(0u, statisticalValues.Datanodes.First().Values.First().Count);
+            Assert.AreEqual(1, statisticalValues.Datanodes.Count());
+            StatisticalDatanodeReadValue datanodeReadValue = statisticalValues.Datanodes.First();
 
+            Assert.AreEqual("MyTestDatapoint", datanodeReadValue.Name);
+            Assert.AreEqual("My/Test", datanodeReadValue.Path);
+            Assert.AreEqual(LongDataType.TypeName, datanodeReadValue.DataType);
+            Assert.AreEqual("%", datanodeReadValue.Unit);
+
+            Assert.AreEqual(1, datanodeReadValue.Values.Count());
+            StatisticalValueData valueData = datanodeReadValue.Values.First();
+
+            Assert.AreEqual(0d, valueData.Sum);
+            Assert.AreEqual(0u, valueData.Count);
+            Assert.IsNull(valueData.Minimum);
+            Assert.IsNull(valueData.Maximum);
+            Assert.IsNull(valueData.Average);
+            Assert.AreNotEqual(DateTime.MinValue, statisticalValues.Datanodes.First().Values.First().UnixTimestamp);
+            Assert.AreNotEqual(new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc), statisticalValues.Datanodes.First().Values.First().Count);
         }
 
         private void TestTaskCancellation(Task task, CancellationToken cancellationToken)
