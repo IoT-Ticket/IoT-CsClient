@@ -23,6 +23,8 @@ namespace Wapice.IoTTicket.RestClient
         private const string WriteDataResourceFormat = "process/write/{0}/";
         private const string ReadDataResourceFormat = "process/read/{0}/?datanodes={1}";
         private const string ReadStatisticalDataResourceFormat = "stat/read/{0}/?datanodes={1}&fromdate={2}&todate={3}&grouping={4}";
+        private const string RootEnterpricesRecourceFormat = "enterprises/";
+        private const string SubEnterpricesRecourceFormat = "enterprises/{0}/";
         private const string QuotaAllResource = "quota/all/";
         private const string QuotaDeviceResourceFormat = "quota/{0}/";
         private const string PagedQueryParamsFormat = "?limit={0}&offset={1}";
@@ -175,13 +177,37 @@ namespace Wapice.IoTTicket.RestClient
 
             using (var response = await _client.HandledGetAsync(uri, cancellationToken))
             {
-                Console.WriteLine(response.Content.ToString());
                 var statisticalValues = await JsonSerializer.DeserializeAsync<StatisticalValues>(response.Content);
                 return statisticalValues;
             }
             
         }
-        
+
+        public async Task<PagedResult<Enterprise>> GetRootEnterpricesAsync(int count, int skip, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            string uri = RootEnterpricesRecourceFormat + String.Format(PagedQueryParamsFormat, count, skip);
+
+            using (var response = await _client.HandledGetAsync(uri, cancellationToken))
+            {
+                var rootEnterprises = await JsonSerializer.DeserializeAsync<PagedResult<Enterprise>>(response.Content);
+                return rootEnterprises;
+            }
+        }
+
+        public async Task<PagedResult<Enterprise>> GetSubEnterpricesAsync(string enterpriseId, int count, int skip, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (String.IsNullOrEmpty(enterpriseId))
+                throw new ArgumentException("EnterpriseId must be set", nameof(enterpriseId));
+
+            string uri = String.Format(SubEnterpricesRecourceFormat, enterpriseId) + String.Format(PagedQueryParamsFormat, count, skip);
+
+            using (var response = await _client.HandledGetAsync(uri, cancellationToken))
+            {
+                var subEnterprises = await JsonSerializer.DeserializeAsync<PagedResult<Enterprise>>(response.Content);
+                return subEnterprises;
+            }
+        }
+
         public async Task<Quota> GetQuotaAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             using (var response = await _client.HandledGetAsync(QuotaAllResource, cancellationToken))

@@ -8,14 +8,19 @@ using System.Threading.Tasks;
 namespace Wapice.IoTTicket.RestClient.Model
 {
 
-    [System.Runtime.Serialization.DataContract]
+    [DataContract]
     public class Enterprise
     {
         [DataMember(Name="href")]
-        public Uri uri { get; set; }
+        public Uri Uri { get; set; }
 
+        [DataMember(Name="name")]
         public string Name { get; set; }
+
+        [DataMember(Name="resourceId")]
         public string ResourceId { get; set; }
+
+        [DataMember(Name="hasSubEnterprises")]
         public bool HasSubEnterprises { get; set; }
     }
 }

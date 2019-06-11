@@ -63,8 +63,32 @@ namespace Wapice.IoTTicket.RestClient
         /// <returns>The result of the query. See <see cref="ProcessValues"/> for more information.</returns>
         Task<ProcessValues> ReadProcessDataAsync(DatanodeQueryCriteria criteria, CancellationToken cancellationToken = default(CancellationToken));
 
-        // TODO: add docs
+        /// <summary>
+        /// Reads statistical data using a query object. <see cref="StatisticalDataQueryCriteria"/> for more information.
+        /// </summary>
+        /// <param name="criteria">The criteria to query the server with.</param>
+        /// <param name="cancellationToken">An optional cancellation token to cancel the request.</param>
+        /// <returns>The result of the query. See <see cref="StatisticalValues"/> for more information.</returns>
         Task<StatisticalValues> ReadStatisticalDataAsync(StatisticalDataQueryCriteria criteria, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Get user's root enterprises from the server with paging support. 
+        /// </summary>
+        /// <param name="count">Max result count to fetch.</param>
+        /// <param name="skip">Amount to skip (offset).</param>
+        /// <param name="cancellationToken">An optional cancellation token to cancel the request.</param>
+        /// <returns>A <see cref="PagedResult{Enterprise}"/> of <see cref="Enterprise"/>.</returns>
+        Task<PagedResult<Enterprise>> GetRootEnterpricesAsync(int count, int skip, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Get sub enterprises under the enterprise with the provided <paramref name="enterpriseId"/> from the server with paging support. 
+        /// </summary>
+        /// <param name="enterpriseId">The resource id of parent Enterprise.</param>
+        /// <param name="count">Max result count to fetch.</param>
+        /// <param name="skip">Amount to skip (offset).</param>
+        /// <param name="cancellationToken">An optional cancellation token to cancel the request.</param>
+        /// <returns>A <see cref="PagedResult{Enterprise}"/> of <see cref="Enterprise"/>.</returns>
+        Task<PagedResult<Enterprise>> GetSubEnterpricesAsync(string enterpriseId, int count, int skip, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Gets the user's quota information from the server.
