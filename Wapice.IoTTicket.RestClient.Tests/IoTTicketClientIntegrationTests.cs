@@ -11,7 +11,7 @@ using Wapice.IoTTicket.RestClient.Model;
 namespace Wapice.IoTTicket.RestClient.Tests
 {
     [TestClass]
-    public class IoTTicketClientTests
+    public class IoTTicketClientIntegrationTests
     {
         private IIoTTicketClient _client;
 
