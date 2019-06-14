@@ -10,6 +10,10 @@ using WireMock.Server;
 
 namespace Wapice.IoTTicket.RestClient.Tests
 {
+    /// <summary>
+    /// Base class for WireMock.Net tests. Starts a wiremock mock server and creates IoTTicketClient that
+    /// sends requests to the mock server.
+    /// </summary>
     [TestClass]
     public abstract class WireMockTestBase
     {
