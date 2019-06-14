@@ -43,11 +43,7 @@ namespace Wapice.IoTTicket.RestClient.Tests
             Quota result = Client.GetQuotaAsync().Result;
             Assert.IsNotNull(result);
 
-            var allReceivedRequests = Server.LogEntries;
-            Assert.AreEqual(1, allReceivedRequests.Count());
-
-            var matchedReceivedRequests = Server.FindLogEntries(expectedRequest);
-            Assert.AreEqual(1, matchedReceivedRequests.Count());
+            AssertReceivedAsOnlyRequest(expectedRequest);
         }
 
         [TestMethod]
@@ -123,7 +119,6 @@ namespace Wapice.IoTTicket.RestClient.Tests
             }
 
             AssertReceivedAsOnlyRequest(expectedRequest);
-
         }
     }
 }

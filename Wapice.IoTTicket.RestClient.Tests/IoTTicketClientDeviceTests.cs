@@ -114,10 +114,14 @@ namespace Wapice.IoTTicket.RestClient.Tests
 
             PagedResult<DeviceDetails> response = new PagedResult<DeviceDetails>()
             {
+                RequestedCount = LIMIT,
+                Skip = OFFSET,
                 Result = new List<DeviceDetails>
                 {
                     deviceDetails
-                }
+                },
+                TotalCount = 1
+               
             };
 
             var expectedRequest =
@@ -141,7 +145,6 @@ namespace Wapice.IoTTicket.RestClient.Tests
             Assert.IsNotNull(result);
 
             AssertReceivedAsOnlyRequest(expectedRequest);
-
         }
 
         [TestMethod]
