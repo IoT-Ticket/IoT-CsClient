@@ -173,7 +173,7 @@ namespace Wapice.IoTTicket.RestClient
             if (criteria.SortOrder != DatanodeQueryCriteria.Order.Unset)
                 uri += String.Format("&order={0}", criteria.SortOrder.ToString().ToLower());
             if (criteria.VTags.Any())
-                uri += String.Format("&vtags={0}", String.Join(",", criteria.VTags));
+                uri += String.Format("&vtags={0}", Uri.EscapeUriString(String.Join(",", criteria.VTags)));
 
             using (var response = await _client.HandledGetAsync(uri, cancellationToken))
             {
