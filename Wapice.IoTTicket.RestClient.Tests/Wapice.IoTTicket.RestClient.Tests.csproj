@@ -125,6 +125,8 @@
   <ItemGroup>
     <Compile Include="IoTTicketClientQuotaTests.cs" />
     <Compile Include="IoTTicketClientDatanodeReadWriteTests.cs" />
+    <Compile Include="IoTTicketClientStatisticsTests.cs" />
+    <Compile Include="IoTTicketEnterpriceTests.cs" />
     <Compile Include="WireMockTestBase.cs" />
     <Compile Include="IoTTicketClientIntegrationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

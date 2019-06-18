@@ -44,7 +44,6 @@ namespace Wapice.IoTTicket.RestClient.Model
         public DateTime EndDate { get; protected set; }
         public DatanodeQueryCriteria.Order SortOrder { get; set; }
         public Grouping ValueGrouping { get; protected set; }
-        // TODO: Ask about what to do with vtags
         public IEnumerable<string> VTags { get; set; } = new List<string>();
     }
 }

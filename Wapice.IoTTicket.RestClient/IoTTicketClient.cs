@@ -168,7 +168,7 @@ namespace Wapice.IoTTicket.RestClient
                 Uri.EscapeUriString(String.Join(",", criteria.Datanodes)), 
                 criteria.StartDate.ToUnixTime(), 
                 criteria.EndDate.ToUnixTime(), 
-                criteria.ValueGrouping);
+                criteria.ValueGrouping.ToString().ToLower());
 
             if (criteria.SortOrder != DatanodeQueryCriteria.Order.Unset)
                 uri += String.Format("&order={0}", criteria.SortOrder.ToString().ToLower());
